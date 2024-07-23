@@ -11,7 +11,7 @@ function App() {
     const [searchResults, setSearchResults] = useState([]);
     useEffect(() => {
         axios
-        .get('http://localhost:4000/notes')
+        .get('https://client-janelim0414s-projects.vercel.app/notes')
         .then ((res) => {
             setNotes(res.data);
         })
@@ -51,7 +51,7 @@ function App() {
         const newNotes = [...noteslist, newNote];
 
         axios
-        .post('http://localhost:4000/notes', newNote)
+        .post('https://client-janelim0414s-projects.vercel.app/notes', newNote)
         .then((res) => {
             setNotes(newNotes);
         })
@@ -67,7 +67,7 @@ function App() {
     function deleteNote(id) {
         console.log(id);
         axios
-        .delete(`http://localhost:4000/notes/${id}`)
+        .delete(`https://client-janelim0414s-projects.vercel.app/notes/${id}`)
         .then((res) => {
             const filtered = noteslist.filter((note) => note._id !== id);
             setNotes(filtered);
