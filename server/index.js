@@ -61,6 +61,11 @@ app.get('/notes', async (req, res) => {
     }
 });
 
+// Initial get request
+app.get('/', (req, res) => {
+    res.send('Hey this is my API running 🥳')
+})
+
 // Start server
 const port = 4000;
 app.listen(port, () => {
