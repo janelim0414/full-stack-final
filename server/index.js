@@ -1,14 +1,16 @@
 import express from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import { MongoClient, ObjectId } from 'mongodb';
 
 const app = express();
+
 app.use(cors());
 app.use(bodyParser.json());
 
 const db_pass = "YuVy4Lp7LJHMmnIx";
-const uri = `mongodb+srv://jl6094:${db_pass}@fullstackdb.uh0eq66.mongodb.net/`;
+const uri = process.env.MONGO_URI || `mongodb+srv://jl6094:${db_pass}@fullstackdb.uh0eq66.mongodb.net/`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 let db;
 
@@ -67,7 +69,7 @@ app.get('/', (req, res) => {
 })
 
 // Start server
-const port = 4000;
+const port = process.env.PORT || 4000;
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });
