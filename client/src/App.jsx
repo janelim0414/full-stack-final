@@ -59,7 +59,7 @@ function App() {
         const newNotes = [...noteslist, newNote];
 
         axios
-        .post('https://sticky-server.vercel.app/notes/post', newNote)
+        .post('https://sticky-server.vercel.app/notes', newNote)
         .then((res) => {
             setNotes(newNotes);
         })

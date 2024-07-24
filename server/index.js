@@ -42,7 +42,7 @@ app.delete('/notes/:id', async (req, res) => {
 });
 
 // Post a note
-app.post('/notes/post', async (req, res) => {
+app.post('/notes', async (req, res) => {
     try {
         const note = req.body;
         console.log('Note received:', note);
