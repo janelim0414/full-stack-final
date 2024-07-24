@@ -6,7 +6,7 @@ import { MongoClient, ObjectId } from 'mongodb';
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
