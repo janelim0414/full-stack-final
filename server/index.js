@@ -42,7 +42,7 @@ app.delete('/notes/:id', async (req, res) => {
 });
 
 // Post a note
-app.post('/notes', async (req, res) => {
+app.post('/notes/post', async (req, res) => {
     try {
         const note = await db.collection('notes').insertOne(req.body);
         res.send(note);
