@@ -44,8 +44,20 @@ app.delete('/notes/:id', async (req, res) => {
 // Post a note
 app.post('/notes/post', async (req, res) => {
     try {
-        const note = await db.collection('notes').insertOne(req.body);
-        res.send(note);
+        const note = req.body;
+        console.log('Note received:', note);
+
+        // Validate the note data
+        if (!note.title || typeof note.title !== 'string') {
+            throw new Error('Invalid title');
+        }
+        if (!note.content || typeof note.content !== 'string') {
+            throw new Error('Invalid content');
+        }
+
+        const result = await db.collection('notes').insertOne(note);
+        console.log('Insert result:', result);
+        res.send(result);
     } catch (e) {
         res.status(400).send({ message: 'Post Error' });
     }
