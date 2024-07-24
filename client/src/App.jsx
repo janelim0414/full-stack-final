@@ -44,10 +44,17 @@ function App() {
 
     // send post request to backend
     function handleClick(event) {
+
+        // send alert if either of the form fields is empty
+        if (!title || !content) {
+            alert('Note cannot be empty');
+            return;
+        }
+
         const newNote = {
             title: title,
             content: content
-        }
+        };
         const newNotes = [...noteslist, newNote];
 
         axios
