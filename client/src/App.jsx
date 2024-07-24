@@ -50,6 +50,7 @@ function App() {
             alert('Note cannot be empty');
             return;
         }
+        console.log(title);
 
         const newNote = {
             title: title,
