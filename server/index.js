@@ -8,8 +8,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-const db_pass = "YuVy4Lp7LJHMmnIx";
-const uri = process.env.MONGODB_URI || `mongodb+srv://jl6094:${db_pass}@fullstackdb.uh0eq66.mongodb.net/`;
+const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 let db;
 
