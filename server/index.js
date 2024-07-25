@@ -25,6 +25,14 @@ async function connect() {
 
 connect();
 
+// reconnect after inactivity
+async function reconnectDB() {
+    if (!client.isConnected()) {
+        await client.connect();
+    }
+    return client.db('test');
+}
+
 // Delete a note
 app.delete('/notes/:id', async (req, res) => {
     try {
@@ -66,6 +74,7 @@ app.post('/notes', async (req, res) => {
 // Get all notes
 app.get('/notes', async (req, res) => {
     try {
+        const db = await reconnectDB();
         const notes = await db.collection('notes').find().toArray();
         res.send(notes);
     } catch (e) {
