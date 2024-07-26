@@ -61,11 +61,12 @@ function App() {
         axios
         .post('https://sticky-server.vercel.app/notes', newNote)
         .then((res) => {
+            console.log('Response:', res.data);
             setNotes(newNotes);
         })
         .catch((e) => {
             console.log(e);
-        })
+        });
         
         // reset the form field
         setTitle("");
