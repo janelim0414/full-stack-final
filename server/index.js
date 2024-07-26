@@ -14,39 +14,24 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 const uri = process.env.MONGODB_URI;
-// const client = new MongoClient(uri);
-let client, db;
+const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+let db;
 
 // connect to mongodb
 async function connect() {
-    if (!client) {
-        client = new MongoClient(uri, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            serverSelectionTimeoutMS: 30000, // reasonable timeout
-        });
+    try {
         await client.connect();
         db = client.db('test');
         console.log("Connected to MongoDB");
+    } catch (e) {
+        console.error(e);
     }
-    // try {
-    //     await client.connect();
-    //     db = client.db('test');
-    //     console.log("Connected to MongoDB");
-    // } catch (e) {
-    //     console.error(e);
-    // }
 }
 
 connect();
-
-// // reconnect after inactivity
-// async function reconnectDB() {
-//     if (!client.isConnected()) {
-//         await client.connect();
-//     }
-//     return client.db('test');
-// }
 
 // Delete a note
 app.delete('/notes/:id', async (req, res) => {
@@ -70,16 +55,9 @@ app.post('/notes', async (req, res) => {
         const note = req.body;
         console.log('Note received:', note);
 
-        // Validate the note data
-        if (!note.title || typeof note.title !== 'string') {
-            throw new Error('Invalid title');
-        }
-        if (!note.content || typeof note.content !== 'string') {
-            throw new Error('Invalid content');
-        }
-
         const result = await db.collection('notes').insertOne(note);
         console.log('Insert result:', result);
+        
         res.send(result);
     } catch (e) {
         res.status(400).send({ message: 'Post Error' });
@@ -89,7 +67,6 @@ app.post('/notes', async (req, res) => {
 // Get all notes
 app.get('/notes', async (req, res) => {
     try {
-        // const db = await reconnectDB();
         const notes = await db.collection('notes').find().toArray();
         res.send(notes);
     } catch (e) {
