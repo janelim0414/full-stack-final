@@ -5,20 +5,16 @@ import { MongoClient, ObjectId } from 'mongodb';
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+    origin: 'https://your-sticky-notes.vercel.app',
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const uri = process.env.MONGODB_URI;
-const dbOptions = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 50000, // Increase timeout
-    socketTimeoutMS: 45000,          // Keep alive for longer
-    keepAlive: true,
-    keepAliveInitialDelay: 300000
-}
-
-const client = new MongoClient(uri, dbOptions);
+const client = new MongoClient(uri);
 let db;
 
 // connect to mongodb
