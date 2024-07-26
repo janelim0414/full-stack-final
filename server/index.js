@@ -5,12 +5,7 @@ import { MongoClient, ObjectId } from 'mongodb';
 
 const app = express();
 
-const corsOptions = {
-    origin: 'https://your-sticky-notes.vercel.app',
-    optionsSuccessStatus: 200
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
 const uri = process.env.MONGODB_URI;
