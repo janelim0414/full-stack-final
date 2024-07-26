@@ -50,12 +50,11 @@ function App() {
             alert('Note cannot be empty');
             return;
         }
-        console.log(title);
-
         const newNote = {
             title: title,
             content: content
         };
+        console.log("Sending note:", newNote);
         const newNotes = [...noteslist, newNote];
 
         axios
