@@ -61,7 +61,7 @@ function App() {
         .then((res) => {
             console.log('Response:', res.data);
             // Update the notes list with the newly added note
-            console.log("Inserted ID: ", res.data.insertedId );
+            console.log('Inserted ID:', res.data.insertedId );
             setNotes((prevNotes) => [...prevNotes, { ...newNote, _id: res.data.insertedId }]);
         })
         .catch((e) => {
