@@ -54,7 +54,7 @@ function App() {
             content: content
         };
         console.log("Sending note:", newNote);
-        // const newNotes = [...noteslist, newNote];
+        const newNotes = [...noteslist, newNote];
 
         axios
         .post('https://sticky-server.vercel.app/notes', newNote)
@@ -62,7 +62,9 @@ function App() {
             console.log('Response:', res.data);
             // Update the notes list with the newly added note
             console.log('Inserted ID:', res.data.insertedId );
-            setNotes((prevNotes) => [...prevNotes, { ...newNote, _id: res.data.insertedId }]);
+            console.log('new notes:', newNotes);
+            setNotes(newNotes);
+            console.log('updated notes:', noteslist);
         })
         .catch((e) => {
             console.log(e);
