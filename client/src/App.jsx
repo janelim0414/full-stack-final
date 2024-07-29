@@ -61,7 +61,8 @@ function App() {
         .post('https://sticky-server.vercel.app/notes', newNote)
         .then((res) => {
             console.log('Response:', res.data);
-            setNotes(newNotes);
+            // Update the notes list with the newly added note
+            setNotes((prevNotes) => [...prevNotes, { ...newNote, _id: res.data.insertedId }]);
         })
         .catch((e) => {
             console.log(e);
