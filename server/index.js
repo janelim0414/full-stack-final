@@ -21,7 +21,7 @@ async function connect() {
     try {
         await client.connect();
         console.log("Connected to MongoDB");
-        db = client.db('db_name');  // Ensure 'db_name' matches the database name in your URI
+        db = client.db('test');  // Ensure 'db_name' matches the database name in your URI
         collection = db.collection('notes');
 
         // Start server only after successful DB connection
