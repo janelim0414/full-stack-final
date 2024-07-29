@@ -44,7 +44,6 @@ function App() {
 
     // send post request to backend
     function handleClick(event) {
-        event.preventDefault();
         // send alert if either of the form fields is empty
         if (!title || !content) {
             alert('Note cannot be empty');
@@ -55,13 +54,14 @@ function App() {
             content: content
         };
         console.log("Sending note:", newNote);
-        const newNotes = [...noteslist, newNote];
+        // const newNotes = [...noteslist, newNote];
 
         axios
         .post('https://sticky-server.vercel.app/notes', newNote)
         .then((res) => {
             console.log('Response:', res.data);
             // Update the notes list with the newly added note
+            console.log("Inserted ID: ", res.data.insertedId );
             setNotes((prevNotes) => [...prevNotes, { ...newNote, _id: res.data.insertedId }]);
         })
         .catch((e) => {
